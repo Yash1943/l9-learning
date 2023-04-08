@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</head>
+<body>
+  <div>
+    <h5>
+      <%= title %> <span class="bg-gray-100 ml-2 px-2"><%= data.length %></span>
+    </h5>
+    <ul class="list-none">
+      <% for(var i = 0; i < data.length; i++) { %>
+      <li class="Todo-Item">
+        <div class="flex items-center w-fit ml-2 py-1 px-2 my-1 todoItem bg-rounded hover:bg-purple-100">
+          <input id="checkbox-<%= data[i].id %>" type="checkbox" <%= data[i].completed ?"checked" : "" %> onclick="updateTodo(<%= data[i].id %>)" class="w-4 h-4 bg-gray-100 text-blue-100"/>
+          <label for="checkbox-<%= data[i].id %>"  class="ml-2 text-sm text-gray-600 curser-pointer">
+            <%= data[i].title %>
+          </label>
+          <a href="#" class="hidden trash-icon ml-2" onclick="deleteTodo(<%= data[i].id %>)">
+           <ion-icon name="trash-outline"></ion-icon>
+          </a>
+        </div>
+      </li>
+      <% } %>
+    </ul>
+  </div>
+
+</body>
+</html>

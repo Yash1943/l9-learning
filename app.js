@@ -1,4 +1,6 @@
 const express = require("express");
+const csurf = require("csurf");
+const cookiepasrser = require("cookie-parser");
 const app = express();
 const bodyParser = require("body-parser");
 app.use(bodyParser.json());
@@ -41,7 +43,7 @@ app.get("/todos", async (request, response) => {
     return response.status(422).json(error);
   }
 });
-app.get("/todos/:id", async function (request, response) {
+app.get("/todos/:id", async(request, response) =>{
   try {
     const todo = await Todo.findByPk(request.params.id);
     return response.json(todo);
@@ -78,6 +80,14 @@ app.put("/todos/:id/markAsCompleted", async (request, response) => {
     return response.status(422).json(error);
   }
 });
+app.delete("/todos/:id", async (request, response)=> {
+  console.log("We have to delete a Todo with ID: ", request.params.id);
+
+  const deleteItem = await Todo.destroy({where:{id:request.params.id}})
+  console.log(deleteItem?true:false)
+  response.render("index")
+});
+
 app.delete("/todos/:id", async (request, response) => {
   console.log("delete a todo with ID:", request.params.id);
   try {
